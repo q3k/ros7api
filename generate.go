@@ -2,4 +2,4 @@
 //go:generate go build -o gen.elf github.com/q3k/ros7api/gen
 //go:generate ./gen.elf
 
-package main
+package ros7api
