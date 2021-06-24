@@ -34,10 +34,37 @@ func (c *Client) InterfaceBridgeVlanList(ctx context.Context) ([]InterfaceBridge
 	if err != nil {
 		return nil, fmt.Errorf("could not GET: %w", err)
 	}
+	defer body.Close()
 
 	var target []InterfaceBridgeVlan
 	if err := json.NewDecoder(body).Decode(&target); err != nil {
 		return nil, fmt.Errorf("could not decode JSON: %w", err)
 	}
 	return target, nil
+}
+
+func (c *Client) InterfaceBridgeVlanPatch(ctx context.Context, id RecordID, u *InterfaceBridgeVlan_Update) (*InterfaceBridgeVlan, error) {
+	rdata, err := json.Marshal(u)
+	if err != nil {
+		return nil, fmt.Errorf("could not marshal update: %w", err)
+	}
+	body, err := c.doPATCH(ctx, "interface/bridge/vlan/"+string(id), rdata)
+	if err != nil {
+		return nil, fmt.Errorf("could not PATCH: %w", err)
+	}
+	defer body.Close()
+
+	var target struct {
+		InterfaceBridgeVlan
+		Error   int64  `json:"error"`
+		Message string `json:"message"`
+		Detail  string `json:"detail"`
+	}
+	if err := json.NewDecoder(body).Decode(&target); err != nil {
+		return nil, fmt.Errorf("could not decode JSON: %w", err)
+	}
+	if target.Error != 0 {
+		return nil, fmt.Errorf("server error: %s: %s", target.Message, target.Detail)
+	}
+	return &target.InterfaceBridgeVlan, nil
 }
