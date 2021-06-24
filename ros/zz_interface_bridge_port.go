@@ -70,7 +70,7 @@ type InterfaceBridgePort struct {
 	// When enabled, prevents a port moving from discarding into forwarding state if no BPDUs are received from the neighboring bridge. The port will change into a forwarding state only when a BPDU is received. This property only has an effect when protocol-mode is set to rstp or mstp and edge is set to no.
 	AutoIsolate Boolean `json:"auto-isolate"`
 	// Enables or disables BPDU Guard feature on a port. This feature puts the port in a disabled role if it receives a BPDU and requires the port to be manually disabled and enabled if a BPDU was received. Should be used to prevent a bridge from BPDU related attacks. This property has no effect when protocol-mode is set to none.
-	BpduGuard Boolean `json:"bpdu-guard"`
+	BPDUGuard Boolean `json:"bpdu-guard"`
 	// The bridge interface where the respective interface is grouped in.
 	Bridge string `json:"bridge"`
 	// When enabled, bridge floods broadcast traffic to all bridge egress ports. When disabled, drops broadcast traffic on egress ports. Can be used to filter all broadcast traffic on an egress port. Broadcast traffic is considered as traffic that uses FF:FF:FF:FF:FF:FF as destination MAC address, such traffic is crucial for many protocols such as DHCP, ARP, NDP, BOOTP (Netinstall), and others. This option does not limit traffic flood to the CPU.
@@ -98,7 +98,7 @@ type InterfaceBridgePort struct {
 	// The priority of the interface, used by STP to determine the root port, used by MSTP to determine root port between regions.
 	Priority Number `json:"priority"`
 	// Port VLAN ID (pvid) specifies which VLAN the untagged ingress traffic is assigned to. This property only has an effect when vlan-filtering is set to yes.
-	Pvid Number `json:"pvid"`
+	PVID Number `json:"pvid"`
 	// Enable the restricted role on a port, used by STP to forbid a port from becoming a root port. This property only has an effect when protocol-mode is set to mstp.
 	RestrictedRole Boolean `json:"restricted-role"`
 	// Disable topology change notification (TCN) sending on a port, used by STP to forbid network topology changes to propagate. This property only has an effect when protocol-mode is set to mstp.
@@ -118,7 +118,7 @@ type InterfaceBridgePort_Update struct {
 	// When enabled, prevents a port moving from discarding into forwarding state if no BPDUs are received from the neighboring bridge. The port will change into a forwarding state only when a BPDU is received. This property only has an effect when protocol-mode is set to rstp or mstp and edge is set to no.
 	AutoIsolate *Boolean `json:"auto-isolate,omitempty"`
 	// Enables or disables BPDU Guard feature on a port. This feature puts the port in a disabled role if it receives a BPDU and requires the port to be manually disabled and enabled if a BPDU was received. Should be used to prevent a bridge from BPDU related attacks. This property has no effect when protocol-mode is set to none.
-	BpduGuard *Boolean `json:"bpdu-guard,omitempty"`
+	BPDUGuard *Boolean `json:"bpdu-guard,omitempty"`
 	// The bridge interface where the respective interface is grouped in.
 	Bridge *string `json:"bridge,omitempty"`
 	// When enabled, bridge floods broadcast traffic to all bridge egress ports. When disabled, drops broadcast traffic on egress ports. Can be used to filter all broadcast traffic on an egress port. Broadcast traffic is considered as traffic that uses FF:FF:FF:FF:FF:FF as destination MAC address, such traffic is crucial for many protocols such as DHCP, ARP, NDP, BOOTP (Netinstall), and others. This option does not limit traffic flood to the CPU.
@@ -146,7 +146,7 @@ type InterfaceBridgePort_Update struct {
 	// The priority of the interface, used by STP to determine the root port, used by MSTP to determine root port between regions.
 	Priority *Number `json:"priority,omitempty"`
 	// Port VLAN ID (pvid) specifies which VLAN the untagged ingress traffic is assigned to. This property only has an effect when vlan-filtering is set to yes.
-	Pvid *Number `json:"pvid,omitempty"`
+	PVID *Number `json:"pvid,omitempty"`
 	// Enable the restricted role on a port, used by STP to forbid a port from becoming a root port. This property only has an effect when protocol-mode is set to mstp.
 	RestrictedRole *Boolean `json:"restricted-role,omitempty"`
 	// Disable topology change notification (TCN) sending on a port, used by STP to forbid network topology changes to propagate. This property only has an effect when protocol-mode is set to mstp.

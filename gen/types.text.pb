@@ -50,7 +50,7 @@ sub {
           description: "When enabled, prevents a port moving from discarding into forwarding state if no BPDUs are received from the neighboring bridge. The port will change into a forwarding state only when a BPDU is received. This property only has an effect when protocol-mode is set to rstp or mstp and edge is set to no."
         }
         property {
-          name: "bpdu-guard" type_boolean { }
+          name: "bpdu-guard" go_name: "BPDUGuard" type_boolean { }
           description: "Enables or disables BPDU Guard feature on a port. This feature puts the port in a disabled role if it receives a BPDU and requires the port to be manually disabled and enabled if a BPDU was received. Should be used to prevent a bridge from BPDU related attacks. This property has no effect when protocol-mode is set to none."
         }
         property {
@@ -166,7 +166,7 @@ sub {
           description: "The priority of the interface, used by STP to determine the root port, used by MSTP to determine root port between regions."
         }
         property {
-          name: "pvid" type_number { }
+          name: "pvid" go_name: "PVID" type_number { }
           description: "Port VLAN ID (pvid) specifies which VLAN the untagged ingress traffic is assigned to. This property only has an effect when vlan-filtering is set to yes."
         }
         property {
