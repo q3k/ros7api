@@ -1,0 +1,38 @@
+syntax = "proto3";
+package org.q3k.ros7api.gen.kinds;
+option go_package = "github.com/q3k/ros7api/gen/kinds";
+
+message Property {
+    string name = 1;
+    string go_name = 2;
+    string description = 3;
+    bool read_only = 4;
+    oneof type {
+        TypeNumber type_number = 5;
+        TypeString type_string = 6;
+        TypeBoolean type_boolean = 7;
+        TypeStringList type_string_list = 8;
+    };
+}
+
+message TypeNumber {
+}
+
+message TypeString {
+}
+
+message TypeBoolean {
+}
+
+message TypeStringList {
+}
+
+message Record {
+    repeated Property property = 1;
+}
+
+message Menu {
+    string name = 1;
+    repeated Menu sub = 2;
+    Record record = 3;
+}
