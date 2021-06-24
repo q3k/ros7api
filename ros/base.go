@@ -8,18 +8,23 @@ import (
 	"strings"
 )
 
+// RecordID is the ID of a ROS record, eg. '*13'.
 type RecordID string
 
 type Record struct {
 	ID RecordID `json:".id"`
 }
 
+// StringPtr returns a string pointer for use in _Update structs.
 func StringPtr(s string) *string {
 	return &s
 }
 
+// Number is a ROS number. We assume they all fit in int64 (this is
+// undocumented...), and we (de)serialize them as strings.
 type Number int64
 
+// NumberPtr returns a Number pointer for use in _Update structs.
 func NumberPtr(n int64) *Number {
 	v := Number(n)
 	return &v
@@ -48,8 +53,10 @@ func (n *Number) MarshalJSON() ([]byte, error) {
 	return []byte(fmt.Sprintf(`"%d"`, *n)), nil
 }
 
+// Boolean is ROS boolean, (de)serialized as a string.
 type Boolean bool
 
+// BooleanPtr returns a Boolean pointer for use in _Update structs.
 func BooleanPtr(b bool) *Boolean {
 	v := Boolean(b)
 	return &v
@@ -79,6 +86,8 @@ func (n *Boolean) MarshalJSON() ([]byte, error) {
 	}
 }
 
+// IPNet is a ROS 'Address/Netmask' type, IPv4 or IPv6, serialized into CIDR
+// notation.
 type IPNet struct {
 	Address net.IP
 	Network net.IPNet
@@ -106,8 +115,11 @@ func (n *IPNet) MarshalJSON() ([]byte, error) {
 	return []byte(v), nil
 }
 
+// IP is a ROS 'Address' type, IPv4 or IPv6, serialized into a dot/colon
+// notation.
 type IP net.IP
 
+// IPPtr returns a pointer to IP, for use in _Update structs.
 func IPPtr(i net.IP) *IP {
 	v := IP(i)
 	return &v
@@ -119,7 +131,7 @@ func (n *IP) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	ip := net.ParseIP(s)
-	if ip == nil || ip.To4() == nil {
+	if ip == nil {
 		return fmt.Errorf("invalid IP %q", s)
 	}
 	*n = IP(ip)
@@ -130,8 +142,11 @@ func (n *IP) MarshalJSON() ([]byte, error) {
 	return []byte(fmt.Sprintf("%q", net.IP(*n).String())), nil
 }
 
+// StringList is a ROS7 list of strings, eg. interfaces, (de)serialized as a
+// string containing comma-delimited values.
 type StringList []string
 
+// StringListPtr returns a pointer to StringList, for use in _Update structs.
 func StringListPtr(l ...string) *StringList {
 	v := StringList(l)
 	return &v

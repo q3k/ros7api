@@ -16,6 +16,7 @@ type update struct {
 	Address  *IPNet      `json:"address,omitempty"`
 }
 
+// TestSerialize ensures that all ROS types serialize as expected.
 func TestSerialize(t *testing.T) {
 	for i, te := range []struct {
 		u    update

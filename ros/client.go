@@ -1,3 +1,9 @@
+// Package ros implements a Mikrotik RouterOS 7 REST API client. It's a very
+// thin wrapper, delivering no high-level logic upon the basic CRUD capability
+// of the API.
+//
+// For more information about the API see:
+// https://help.mikrotik.com/docs/display/ROS/REST+API
 package ros
 
 import (
@@ -8,11 +14,18 @@ import (
 	"net/http"
 )
 
+// Client is a ROS7 REST API client. It connects to a ROS www-ssl service
+// at the given Address, authenticating using the given Username and Password.
 type Client struct {
+	// Address (like foo.example.com or 1.2.3.4:1234 or [2a0d:eb01::1]:443) of
+	// ROS7 www-ssl service.
+	Address string
+	// Username used to authenticate to ROS API.
 	Username string
+	// Password used to authenticate to ROS API.
 	Password string
-	Address  string
-	Client   *http.Client
+	// HTTP client used for connections. If not setu, uses http.DefaultClient.
+	HTTP *http.Client
 }
 
 func (c *Client) urlFor(path string) string {
@@ -20,10 +33,10 @@ func (c *Client) urlFor(path string) string {
 }
 
 func (c *Client) httpClient() *http.Client {
-	if c.Client == nil {
-		c.Client = http.DefaultClient
+	if c.HTTP == nil {
+		return http.DefaultClient
 	}
-	return c.Client
+	return c.HTTP
 }
 
 func (c *Client) doGET(ctx context.Context, path string) (io.ReadCloser, error) {

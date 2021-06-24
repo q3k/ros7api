@@ -2,6 +2,24 @@ syntax = "proto3";
 package org.q3k.ros7api.gen.kinds;
 option go_package = "github.com/q3k/ros7api/gen/kinds";
 
+// Menu is an element of the RouterOS menu tree, eg. 'vlan' in
+// 'interface/bridge/vlan'.
+message Menu {
+    // name is the name of this menu path element, eg. 'vlan'.
+    string name = 1;
+    // sub is a list of sub-menus within this menu.
+    repeated Menu sub = 2;
+    // record is the RouterOS record type tied to this menu element.
+    Record record = 3;
+}
+
+// Record is a RouterOS object type, eg. a bridge VLAN, contained within a
+// menu, eg. interface/bridge/vlan.
+message Record {
+    repeated Property property = 1;
+}
+
+// Property is a property of a Record.
 message Property {
     string name = 1;
     string go_name = 2;
@@ -25,14 +43,4 @@ message TypeBoolean {
 }
 
 message TypeStringList {
-}
-
-message Record {
-    repeated Property property = 1;
-}
-
-message Menu {
-    string name = 1;
-    repeated Menu sub = 2;
-    Record record = 3;
 }
