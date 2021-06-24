@@ -31,6 +31,7 @@ message Property {
         TypeString type_string = 6;
         TypeBoolean type_boolean = 7;
         TypeStringList type_string_list = 8;
+        TypeNumberList type_number_list = 9;
     };
 }
 
@@ -44,4 +45,7 @@ message TypeBoolean {
 }
 
 message TypeStringList {
+}
+
+message TypeNumberList {
 }

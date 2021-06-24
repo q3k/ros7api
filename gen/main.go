@@ -65,6 +65,8 @@ func propertyFromProto(p *kpb.Property) *property {
 		gotype = "Boolean"
 	case *kpb.Property_TypeStringList:
 		gotype = "StringList"
+	case *kpb.Property_TypeNumberList:
+		gotype = "NumberList"
 	default:
 		panic(fmt.Sprintf("unknown type %v", p.Type))
 	}
