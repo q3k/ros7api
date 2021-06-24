@@ -24,7 +24,10 @@ type Client struct {
 	Username string
 	// Password used to authenticate to ROS API.
 	Password string
-	// HTTP client used for connections. If not setu, uses http.DefaultClient.
+	// HTTP client used for connections. If not set, uses http.DefaultClient.
+	// If connecting to a ROS7 device whose certificate was generated via
+	// built-in Let's Encrypt support, this should be set to LetsEncryptClient
+	// to add trust for the Let's Encrypt R3 CA.
 	HTTP *http.Client
 }
 
