@@ -17,6 +17,7 @@ message Menu {
 // menu, eg. interface/bridge/vlan.
 message Record {
     repeated Property property = 1;
+    string description = 2;
 }
 
 // Property is a property of a Record.

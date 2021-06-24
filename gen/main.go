@@ -112,9 +112,16 @@ func (m *menu) generate() error {
 
 	// Emit record type.
 	m.printf("// %s represents a ROS `%s` record, including read-only fields.\n", sname, m.path)
+	if m.m.Record.Description != "" {
+		m.printf("//\n")
+		m.printf("// %s\n", m.m.Record.Description)
+	}
 	m.printf("type %s struct {\n", sname)
 	m.printf("\tRecord\n\n")
 	for _, p := range properties {
+		if p.p.Description != "" {
+			m.printf("\t// %s\n", p.p.Description)
+		}
 		m.printf("\t%s\t%s\t`json:\"%s\"`\n", p.goname, p.gotype, p.name)
 	}
 	m.printf("}\n\n")
@@ -125,6 +132,9 @@ func (m *menu) generate() error {
 	for _, p := range properties {
 		if p.p.ReadOnly {
 			continue
+		}
+		if p.p.Description != "" {
+			m.printf("\t// %s\n", p.p.Description)
 		}
 		m.printf("\t%s\t*%s\t`json:\"%s,omitempty\"`\n", p.goname, p.gotype, p.name)
 	}
