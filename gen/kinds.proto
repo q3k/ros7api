@@ -32,6 +32,7 @@ message Property {
         TypeBoolean type_boolean = 7;
         TypeStringList type_string_list = 8;
         TypeNumberList type_number_list = 9;
+        TypeEnum type_enum = 10;
     };
 }
 
@@ -48,4 +49,12 @@ message TypeStringList {
 }
 
 message TypeNumberList {
+}
+
+message TypeEnum {
+    message Variant {
+      string value = 1;
+      string description = 2;
+    }
+    repeated Variant variant = 1;
 }
